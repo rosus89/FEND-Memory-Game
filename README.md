@@ -1,5 +1,7 @@
 # Memory Game Project
 
+[Live Preview](https://rosus89.github.io/FEND-Memory-Game/)
+
 ## Table of Contents
 
 * [Instructions](#instructions)
