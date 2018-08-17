@@ -1,6 +1,7 @@
 //TODO: Refactoring 
 //TODO: replace deck content with score when game finishes
 //TODO: Add Slider to adjust waitTime .5s - 2s;
+const t0 = performance.now();
 
 // Create a list that holds all of your cards
 
@@ -54,8 +55,10 @@ function shuffle(array) {
 // Listen to Events and filter 
 
  deck.addEventListener('click', function () {
+     // excludes events that are not (clicking on deck or icon) and excludes cards that have been already matched
      if (event.toElement.nodeName == "LI" && event.toElement.classList[3] != "match")
       {
+          // stops the cards showing after 2 cards have been put into array
        selected = event.toElement
        if (openCards.length < 2)
        {
@@ -65,17 +68,15 @@ function shuffle(array) {
      }
  });
 
-//
+// Pushes cards into array and checks if cards are the same.
 
  function compare (selected) {
-
-
      openCards.push(selected);
      if (openCards.length == 2)
     {
         
-       
-        if (openCards[0] == openCards[1]) {
+       //Avoid double click on same card
+        if (openCards[0] === openCards[1]) {
             openCards.splice(1, 1);
             
         }
@@ -112,6 +113,7 @@ function shuffle(array) {
      for (openCard of openCards)
      {
         openCard.style.opacity = 0;
+        openCard.style.transition = "opacity 1s";
         openCard.classList.add("match");
      }
      openCards=[];  
@@ -130,6 +132,7 @@ function shuffle(array) {
      deck.innerHTML= '<div>Congratulations</div>';
      
  }
-// TODO: Stars
-
- }
+}
+ // TODO: Stars
+const t1 = performance.now();
+console.log("Code took " + (t1 - t0) + " milliseconds.");
