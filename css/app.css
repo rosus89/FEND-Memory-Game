@@ -115,3 +115,19 @@ h1 {
   margin : 0 10px;
 }
 
+@media screen and (max-width: 376px) {
+    .deck {
+        width: 100%;
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        padding: 2px;
+        min-height: 330px;
+    }
+    .score-panel {
+        width: 100%;
+    }
+    .deck .card {
+        width:80px;
+        height: 80px;
+    }
+}

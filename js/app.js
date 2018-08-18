@@ -95,14 +95,14 @@ function shuffle(array) {
         else if (openCards[0].innerHTML === openCards[1].innerHTML)
          {
              
-              matched();
-              counter();
-              completion();
+            matched();
+            counter();
+            completion();
         }
          else 
          {
-             counter()
-             setTimeout(function () { notMatched(); }, waitTime);
+            counter();
+            notMatched();
              
     }
 
@@ -116,12 +116,13 @@ function shuffle(array) {
  }
 
  function notMatched() {
-
-     for (openCard of openCards)
-     {
-          openCard.classList.remove("open", "show");
-    }
-         openCards= [];
+     setTimeout(function () {
+         for (openCard of openCards) {
+             openCard.classList.remove("open", "show");
+             openCards = [];
+         }
+      }, waitTime); 
+         
  }
 
  function matched(){
