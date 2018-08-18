@@ -12,16 +12,16 @@ let cards = [...document.getElementsByClassName("card")];
 let deck = document.querySelector(".deck");
 let movesDOM = document.querySelector(".moves");
 let starsDOM = document.querySelectorAll(".stars li i");
-console.log(starsDOM); 
+timerDOM = document.querySelector(".timer");
 // Declarations
 
 let moves = "";
 let completed = 0;
 var openCards = [];
 let waitTime = 1000;
-let second = 0;
-let minute = 0;
-timerStart = false;
+let second, minute; 
+var timerStarted = false;
+let step
 
 // Starts App
 
@@ -37,6 +37,9 @@ function reset() {
     movesDOM.textContent = moves;
     second = 0;
     minute = 0;
+    timerDOM.innerHTML = minute + " : " + second;
+    clearInterval(step);
+    timerStarted = false;
     for (card of cards) {
         card.classList.remove("match", "open", "show");
         card.style.opacity = "1";
@@ -107,8 +110,9 @@ function shuffle(array) {
  }
  function turnCard (){
      selected.classList.add("open", "show");
-     startTimer();
-     
+   
+       startTimer();
+
  }
 
  function notMatched() {
@@ -140,7 +144,7 @@ function shuffle(array) {
  completed++;
  if (completed == 8)
  {
-     console.log("game finished");
+
      deck.innerHTML= '<div>Congratulations</div>';
      
  }
@@ -164,9 +168,10 @@ function shuffle(array) {
  }
  // counts seconds and modifies movesDOM
 
- timerDOM = document.querySelector(".timer");
+
+
  function timer(){
-    setInterval(function(){
+   step = setInterval(function(){
           second ++;    
           if (second == 60)
           {
@@ -180,7 +185,6 @@ function shuffle(array) {
 
 // Starts Timer and stops it from starting again
 var startTimer = (function () {
-    var timerStarted = false;
     return function () {
         if (timerStarted == false) {
             timerStarted = true;
