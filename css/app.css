@@ -107,3 +107,10 @@ h1 {
     float: right;
     cursor: pointer;
 }
+.timer{
+  display: inline-block;
+  padding: 0 10px;
+  background-color: #d4d4d4;
+  border: solid 1px #19C0BC;
+}
+

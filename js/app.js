@@ -19,6 +19,9 @@ let moves = "";
 let completed = 0;
 var openCards = [];
 let waitTime = 1000;
+let second = 0;
+let minute = 0;
+timerStart = false;
 
 // Starts App
 
@@ -32,6 +35,8 @@ function reset() {
     moves = 0;
     cards = shuffle(cards);
     movesDOM.textContent = moves;
+    second = 0;
+    minute = 0;
     for (card of cards) {
         card.classList.remove("match", "open", "show");
         card.style.opacity = "1";
@@ -79,8 +84,6 @@ function shuffle(array) {
      openCards.push(selected);
      if (openCards.length == 2)
      {
-         console.log(openCards)
-        
        //Avoid double click on same card
         if (openCards[0] === openCards[1]) {
             openCards.splice(1, 1);
@@ -104,6 +107,8 @@ function shuffle(array) {
  }
  function turnCard (){
      selected.classList.add("open", "show");
+     startTimer();
+     
  }
 
  function notMatched() {
@@ -142,19 +147,47 @@ function shuffle(array) {
 }
  // Change star type
  function stars(){
+     let  emptyStar = "fa fa-star-o"
     if (moves > 13)
     {
-        starsDOM[2].className = "fa fa-star-o";
+        starsDOM[2].className = emptyStar;
  
     }
-    if (moves > 15)
+    if (moves > 16)
     {
-        starsDOM[1].className = "fa fa-star-o";
+        starsDOM[1].className = emptyStar;
     }
     if (moves > 19)
     {
-        starsDOM[0].className = "fa fa-star-o";
+        starsDOM[0].className = emptyStar;
     }
  }
+ // counts seconds and modifies movesDOM
+
+ timerDOM = document.querySelector(".timer");
+ function timer(){
+    setInterval(function(){
+          second ++;    
+          if (second == 60)
+          {
+              minute++
+          }
+        second = second % 60;
+        timerDOM.innerHTML = minute + " : " + second;
+
+         },1000)
+ }
+
+// Starts Timer and stops it from starting again
+var startTimer = (function () {
+    var timerStarted = false;
+    return function () {
+        if (timerStarted == false) {
+            timerStarted = true;
+            timer();
+        }
+    };
+})();
+
 const t1 = performance.now();
 console.log("Code took " + (t1 - t0) + " milliseconds.");
