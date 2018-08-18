@@ -11,7 +11,8 @@ let cards = [...document.getElementsByClassName("card")];
 
 let deck = document.querySelector(".deck");
 let movesDOM = document.querySelector(".moves");
-
+let starsDOM = document.querySelectorAll(".stars li i");
+console.log(starsDOM); 
 // Declarations
 
 let moves = "";
@@ -35,6 +36,10 @@ function reset() {
         card.classList.remove("match", "open", "show");
         card.style.opacity = "1";
         deck.appendChild(card);
+    };
+    for (star of starsDOM)
+    {
+        star.className = "fa fa-star";
     }
 }
 
@@ -73,14 +78,15 @@ function shuffle(array) {
  function compare (selected) {
      openCards.push(selected);
      if (openCards.length == 2)
-    {
+     {
+         console.log(openCards)
         
        //Avoid double click on same card
         if (openCards[0] === openCards[1]) {
             openCards.splice(1, 1);
-            
         }
-        else if (openCards[0].children[0].className === openCards[1].children[0].className ) 
+
+        else if (openCards[0].innerHTML === openCards[1].innerHTML)
          {
              
               matched();
@@ -121,6 +127,7 @@ function shuffle(array) {
 
  function counter(){
      moves++;
+     stars();
      movesDOM.textContent = moves;
  }
 
@@ -133,6 +140,21 @@ function shuffle(array) {
      
  }
 }
- // TODO: Stars
+ // Change star type
+ function stars(){
+    if (moves > 13)
+    {
+        starsDOM[2].className = "fa fa-star-o";
+ 
+    }
+    if (moves > 15)
+    {
+        starsDOM[1].className = "fa fa-star-o";
+    }
+    if (moves > 19)
+    {
+        starsDOM[0].className = "fa fa-star-o";
+    }
+ }
 const t1 = performance.now();
 console.log("Code took " + (t1 - t0) + " milliseconds.");
