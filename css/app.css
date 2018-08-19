@@ -116,18 +116,22 @@ h1 {
 }
 
 @media screen and (max-width: 376px) {
+    .container {
+        padding: 0 3px;
+    }
     .deck {
-        width: 100%;
+        width: 95%;
         display: grid;
         grid-template-columns: auto auto auto auto;
-        padding: 2px;
-        min-height: 330px;
+        padding: 3px;
+        min-height: 320px;
+        margin: auto;
     }
     .score-panel {
-        width: 100%;
+        width: 95%;
     }
     .deck .card {
-        width:80px;
-        height: 80px;
+        width:70px;
+        height: 70px;
     }
 }
