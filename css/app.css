@@ -115,7 +115,7 @@ h1 {
   margin : 0 10px;
 }
 
-@media screen and (max-width: 376px) {
+@media screen and (max-width: 660px) {
     .container {
         padding: 0 3px;
     }
@@ -126,18 +126,38 @@ h1 {
         padding: 3px;
         min-height: 320px;
         margin: auto;
+        max-width: 420px;
     }
     .score-panel {
         width: 95%;
         line-height: 30px;
         font-size:25px;
+        max-width: 420px;
     }
     .deck .card {
-        width:70px;
-        height: 70px;
+        width: 90px;
+        height: 90px;
+        margin-bottom: 5px;
     }
     .timer {
         margin: 0 auto;
     }
     
+}
+
+@media screen and (max-width: 400px){
+    .deck .card {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 5px;
+}
+}
+
+@media screen and (max-width: 376px){
+
+    .deck .card {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 2px;
+    }
 }
