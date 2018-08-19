@@ -129,9 +129,15 @@ h1 {
     }
     .score-panel {
         width: 95%;
+        line-height: 30px;
+        font-size:25px;
     }
     .deck .card {
         width:70px;
         height: 70px;
     }
+    .timer {
+        margin: 0 auto;
+    }
+    
 }
