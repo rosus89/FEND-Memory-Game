@@ -1,6 +1,6 @@
 //TODO: Refactoring 
-//TODO: replace deck content with score when game finishes
-//TODO: Add Slider to adjust waitTime .5s - 2s;
+//TODO: Refactor Star system and add to Modal
+
 const t0 = performance.now();
 
 // Create a list that holds all of your cards
@@ -12,13 +12,14 @@ let cards = [...document.getElementsByClassName("card")];
 let deck = document.querySelector(".deck");
 let movesDOM = document.querySelector(".moves");
 let starsDOM = document.querySelectorAll(".stars li i");
-timerDOM = document.querySelector(".timer");
+let timerDOM = document.querySelector(".timer");
+let modalDOM = document.querySelector(".modal");
+let finalTimeDOM = document.querySelector(".final-time")
 // Declarations
 
 let moves = "";
 let completed = 0;
 var openCards = [];
-let waitTime = 1000;
 let second, minute; 
 var timerStarted = false;
 let step;
@@ -41,6 +42,7 @@ function reset() {
     timerDOM.innerHTML = minute + " : " + second;
     clearInterval(step);
     timerStarted = false;
+    modalDOM.style.display = "none";
     for (card of cards) {
         card.classList.remove("match", "open", "show");
         card.style.opacity = "1";
@@ -122,7 +124,7 @@ function shuffle(array) {
              openCard.classList.remove("open", "show");
              openCards = [];
          }
-      }, waitTime); 
+      }, 1000); 
          
  }
 
@@ -147,17 +149,16 @@ function shuffle(array) {
  if (completed == 8)
  {
 
-     deck.innerHTML= '<div>Congratulations</div>';
+     endGame();
      
  }
 }
  // Change star type
  function stars(){
-     let  emptyStar = "fa fa-star-o"
+    let  emptyStar = "fa fa-star-o"
     if (moves > 15)
     {
         starsDOM[2].className = emptyStar;
- 
     }
     if (moves > 17)
     {
@@ -194,6 +195,39 @@ var startTimer = (function () {
         }
     };
 })();
+
+function endGame(){
+    let finalMinute = minute;
+    let finalSecond = second;
+    clearInterval(step);
+
+    // Propper Grammar
+    // minute / minutes
+    let stringMinute = "minutes";
+    if (finalMinute === 1){
+        stringMinute = "minute";
+    }
+
+    // second / seconds
+    let stringSecond = "seconds";
+    if (finalSecond === 1){
+        stringSecond = "second"
+    }
+
+    // no zero values displayed 
+    if (finalMinute > 0 && finalSecond != 0)
+    {
+        finalTimeDOM.innerHTML = `${finalMinute} ${stringMinute} and ${finalSecond} ${stringSecond}`;
+    }
+    else if (finalMinute > 0){
+        finalTimeDOM.innerHTML = `${finalMinute} ${stringMinute}`;
+    }
+    else {
+        finalTimeDOM.innerHTML = `${finalSecond} ${stringSecond}`;
+    }
+    modalDOM.style.display = "block";
+
+}
 
 const t1 = performance.now();
 console.log("Code took " + (t1 - t0) + " milliseconds.");
