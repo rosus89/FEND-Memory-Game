@@ -116,17 +116,10 @@ h1 {
 }
 
 @media screen and (max-width: 660px) {
-    .container {
-        padding: 0 3px;
-    }
     .deck {
-        width: 95%;
-        display: grid;
-        grid-template-columns: auto auto auto auto;
-        padding: 3px;
-        min-height: 320px;
-        margin: auto;
-        max-width: 420px;
+        width: 96vw;
+        padding: 8px;
+        min-height: 100vw;
     }
     .score-panel {
         width: 95%;
@@ -135,9 +128,8 @@ h1 {
         max-width: 420px;
     }
     .deck .card {
-        width: 90px;
-        height: 90px;
-        margin-bottom: 5px;
+        width: 22vw;
+        height: 22vw;
     }
     .timer {
         margin: 0 auto;
@@ -145,19 +137,22 @@ h1 {
     
 }
 
-@media screen and (max-width: 400px){
+@media screen and (max-width: 415px){
+    .deck {
+        padding: 6px;
+    }
     .deck .card {
-        width: 80px;
-        height: 80px;
-        margin-bottom: 5px;
-}
+        width: 22vw;
+        height: 22vw;
+    }
 }
 
-@media screen and (max-width: 376px){
-
+@media screen and (max-width: 340px){
+    .deck {
+        padding: 4px;
+    }
     .deck .card {
-        width: 70px;
-        height: 70px;
-        margin-bottom: 2px;
+        width: 23vw;
+        height: 23vw;
     }
 }
