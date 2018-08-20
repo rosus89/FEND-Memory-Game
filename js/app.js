@@ -36,7 +36,7 @@ function reset() {
     moves = 0;
     openCards = [];
     cards = shuffle(cards);
-    movesDOM.textContent = moves;
+    movesDOM.textContent = moves + " moves";
     second = 0;
     minute = 0;
     timerDOM.innerHTML = minute + " : " + second;
@@ -141,7 +141,7 @@ function shuffle(array) {
  function counter(){
      moves++;
      stars();
-     movesDOM.textContent = moves;
+     movesDOM.textContent = moves + " moves";
  }
 
  function completion(){
