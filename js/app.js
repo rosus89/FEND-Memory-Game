@@ -21,7 +21,7 @@ var openCards = [];
 let waitTime = 1000;
 let second, minute; 
 var timerStarted = false;
-let step
+let step;
 
 // Starts App
 
@@ -33,6 +33,7 @@ function reset() {
     deck.innerHTML= '';
     completed = 0;
     moves = 0;
+    openCards = [];
     cards = shuffle(cards);
     movesDOM.textContent = moves;
     second = 0;
@@ -153,16 +154,16 @@ function shuffle(array) {
  // Change star type
  function stars(){
      let  emptyStar = "fa fa-star-o"
-    if (moves > 13)
+    if (moves > 15)
     {
         starsDOM[2].className = emptyStar;
  
     }
-    if (moves > 16)
+    if (moves > 17)
     {
         starsDOM[1].className = emptyStar;
     }
-    if (moves > 19)
+    if (moves > 20)
     {
         starsDOM[0].className = emptyStar;
     }
