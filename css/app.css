@@ -99,9 +99,10 @@ h1 {
 .score-panel {
     text-align: left;
     width: 660px;
-    padding: 10px;
+    padding: 0 10px;
     display: flex;
     justify-content: space-between;
+    margin: 10px;
 }
 .score-panel > * {
     font-size: 20px;
@@ -120,6 +121,7 @@ h1 {
 }
 
 .restart {
+    font-size: 24px;
     cursor: pointer;
     animation-duration: 1.5s;
     animation-name: spin;
