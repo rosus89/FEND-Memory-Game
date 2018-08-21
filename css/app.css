@@ -102,7 +102,7 @@ h1 {
     padding: 0 10px;
     display: flex;
     justify-content: space-between;
-    margin: 10px;
+    margin: 10px 0;
 }
 .score-panel > * {
     font-size: 20px;
@@ -200,7 +200,10 @@ h1 {
     
 }
 
-@media screen and (max-width: 415px){
+@media screen and (max-width: 400px){
+    .container {
+        width: 100%;
+    }
     .deck {
         padding: 6px;
     }
@@ -210,18 +213,6 @@ h1 {
     }
 }
 
-@media screen and (max-width: 340px){
-    .container {
-        width: 100%;
-    }
-    .deck {
-        padding: 4px;
-    }
-    .deck .card {
-        width: 23vw;
-        height: 23vw;
-    }
-}
 
 @keyframes spin {
     0% {

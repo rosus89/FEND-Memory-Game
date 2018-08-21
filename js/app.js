@@ -36,7 +36,7 @@ function reset() {
     moves = 0;
     openCards = [];
     cards = shuffle(cards);
-    movesDOM.textContent = "Match the pairs";
+    movesDOM.textContent = "Match pairs";
     second = 0;
     minute = 0;
     timerDOM.innerHTML = minute + " : " + second;
@@ -141,7 +141,12 @@ function shuffle(array) {
  function counter(){
      moves++;
      stars();
-     movesDOM.textContent = moves + " moves";
+     let stringMoves = "moves";
+     if (moves === 1)
+     {
+         stringMoves = "move";
+     }
+     movesDOM.textContent = moves + " " + stringMoves;
  }
 
  function completion(){
