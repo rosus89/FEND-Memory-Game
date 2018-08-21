@@ -1,8 +1,6 @@
 //TODO: Refactoring 
 //TODO: Refactor Star system and add to Modal
-
-const t0 = performance.now();
-
+var temp;
 // Create a list that holds all of your cards
 
 let cards = [...document.getElementsByClassName("card")];
@@ -22,8 +20,7 @@ let completed = 0;
 var openCards = [];
 let second, minute; 
 var timerStarted = false;
-let step;
-
+let timerCycle;
 // Starts App
 
 document.body.onload = reset();
@@ -40,7 +37,7 @@ function reset() {
     second = 0;
     minute = 0;
     timerDOM.innerHTML = minute + " : " + second;
-    clearInterval(step);
+    clearInterval(timerCycle);
     timerStarted = false;
     modalDOM.style.display = "none";
     for (card of cards) {
@@ -53,6 +50,7 @@ function reset() {
         star.className = "fa fa-star";
     }
 }
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -75,7 +73,7 @@ function shuffle(array) {
      if (event.toElement.nodeName == "LI" && event.toElement.classList[3] != "match")
       {
           // stops the cards showing after 2 cards have been put into array
-       selected = event.toElement
+       selected = event.toElement;
        if (openCards.length < 2)
        {
          turnCard();
@@ -83,6 +81,11 @@ function shuffle(array) {
        compare(selected);
      }
  });
+
+function turnCard() {
+    selected.classList.add("open", "show");
+    startTimer();
+}
 
 // Pushes cards into array and checks if cards are the same.
 
@@ -111,21 +114,17 @@ function shuffle(array) {
 
  }
  }
- function turnCard (){
-     selected.classList.add("open", "show");
-   
-       startTimer();
 
- }
+function notMatched() {
+    setTimeout(function () {
+        hideCards()}, 1000); 
+}
 
- function notMatched() {
-     setTimeout(function () {
-         for (openCard of openCards) {
-             openCard.classList.remove("open", "show");
-             openCards = [];
-         }
-      }, 1000); 
-         
+ function hideCards() {
+     for (openCard of openCards) {
+         openCard.classList.remove("open", "show");
+     }
+     openCards = [];
  }
 
  function matched(){
@@ -179,15 +178,19 @@ function shuffle(array) {
 
 
  function timer(){
-   step = setInterval(function(){
+   timerCycle = setInterval(function(){
           second ++;    
           if (second == 60)
           {
               minute++
           }
         second = second % 60;
-        timerDOM.innerHTML = minute + " : " + second;
-
+        if (minute < 1){
+            timerDOM.innerHTML = second + "s";
+        }
+        else {
+            timerDOM.innerHTML = minute + " : " + second;
+        }
          },1000)
  }
 
@@ -203,7 +206,7 @@ var startTimer = (function () {
 
 function endGame(){
 
-    clearInterval(step);
+    clearInterval(timerCycle);
 
     // Propper Grammar
     // minute / minutes
@@ -232,6 +235,3 @@ function endGame(){
     modalDOM.style.display = "block";
 
 }
-
-const t1 = performance.now();
-console.log("Code took " + (t1 - t0) + " milliseconds.");
