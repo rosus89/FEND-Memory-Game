@@ -1,6 +1,5 @@
 //TODO: Refactoring 
 //TODO: Refactor Star system and add to Modal
-var temp;
 // Create a list that holds all of your cards
 
 let cards = [...document.getElementsByClassName("card")];
@@ -9,7 +8,9 @@ let cards = [...document.getElementsByClassName("card")];
 
 let deck = document.querySelector(".deck");
 let movesDOM = document.querySelector(".moves");
-let starsDOM = document.querySelectorAll(".stars li i");
+let starsDOM = document.querySelectorAll("#stars li i");
+let starsParentDOM = document.querySelector("#stars");
+let starsModalDOM = document.querySelector(".modal-stars")
 let timerDOM = document.querySelector(".timer");
 let modalDOM = document.querySelector(".modal");
 let finalTimeDOM = document.querySelector(".final-time")
@@ -28,23 +29,23 @@ document.body.onload = reset();
 // Resets App
 
 function reset() {
-    deck.innerHTML= '';
-    completed = 0;
-    moves = 0;
+    completed = moves =  second = minute = 0;
     openCards = [];
+
     cards = shuffle(cards);
-    movesDOM.textContent = "Match pairs";
-    second = 0;
-    minute = 0;
-    timerDOM.innerHTML = minute + " : " + second;
     clearInterval(timerCycle);
     timerStarted = false;
+
+    movesDOM.textContent = "Match pairs";
+    timerDOM.innerHTML = minute + " : " + second;
     modalDOM.style.display = "none";
+
     for (card of cards) {
         card.classList.remove("match", "open", "show");
         card.style.opacity = "1";
         deck.appendChild(card);
     };
+
     for (star of starsDOM)
     {
         star.className = "fa fa-star";
@@ -157,6 +158,7 @@ function notMatched() {
      
  }
 }
+
  // Change star type
  function stars(){
     let  emptyStar = "fa fa-star-o"
@@ -234,4 +236,5 @@ function endGame(){
     }
     modalDOM.style.display = "block";
 
+starsModalDOM.innerHTML = starsParentDOM.innerHTML;
 }
