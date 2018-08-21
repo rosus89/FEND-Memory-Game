@@ -36,7 +36,7 @@ function reset() {
     moves = 0;
     openCards = [];
     cards = shuffle(cards);
-    movesDOM.textContent = moves + " moves";
+    movesDOM.textContent = "Match the pairs";
     second = 0;
     minute = 0;
     timerDOM.innerHTML = minute + " : " + second;
@@ -197,33 +197,32 @@ var startTimer = (function () {
 })();
 
 function endGame(){
-    let finalMinute = minute;
-    let finalSecond = second;
+
     clearInterval(step);
 
     // Propper Grammar
     // minute / minutes
     let stringMinute = "minutes";
-    if (finalMinute === 1){
+    if (minute === 1){
         stringMinute = "minute";
     }
 
     // second / seconds
     let stringSecond = "seconds";
-    if (finalSecond === 1){
+    if (second === 1){
         stringSecond = "second"
     }
 
     // no zero values displayed 
-    if (finalMinute > 0 && finalSecond != 0)
+    if (minute > 0 && second != 0)
     {
-        finalTimeDOM.innerHTML = `${finalMinute} ${stringMinute} and ${finalSecond} ${stringSecond}`;
+        finalTimeDOM.innerHTML = `${minute} ${stringMinute} ${second} ${stringSecond} and ${moves} moves`;
     }
-    else if (finalMinute > 0){
-        finalTimeDOM.innerHTML = `${finalMinute} ${stringMinute}`;
+    else if (minute > 0){
+        finalTimeDOM.innerHTML = `${minute} ${stringMinute} and ${moves} moves`;
     }
     else {
-        finalTimeDOM.innerHTML = `${finalSecond} ${stringSecond}`;
+        finalTimeDOM.innerHTML = `${second} ${stringSecond} and ${moves} moves`;
     }
     modalDOM.style.display = "block";
 
