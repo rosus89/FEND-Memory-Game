@@ -41,7 +41,6 @@ let users = {
             userSelector.addEventListener("click", function() {
                 currentUser = event.target.innerText;
                 users.change();
-                modal(loginScreen);
             })
         }
     },
@@ -70,6 +69,7 @@ let users = {
     change: function () {
         let currentPlayer = document.querySelector(".current-player");
         currentPlayer.innerText = currentUser;
+        modal(loginScreen);
     }
 }
 
