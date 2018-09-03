@@ -30,16 +30,54 @@ body {
     margin: 0 auto;
 }
 
+.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 46px;
+    background: #ddd;
+    border-bottom: 2px solid #29BABF;
+}
+
+.btn {
+    background: linear-gradient(160deg, #02ccba 0%, #a270ca 100%);
+    color: white;
+    border: 1.5px solid #65338d;
+    padding: 0.5rem;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    margin: 3px;
+}
+
+.btn:hover,
+.btn:active {
+    background: white;
+    color: #0e4f1f;
+}
+
+.btn:focus {
+    outline: none;
+}
+
+.player-control {
+display: flex;
+}
+
+.current-player {
+    line-height: 46px;
+    margin: 0 16px;
+}
+
 header {
     border-bottom: 2px solid #29BABF;
     width: 100%;
 }
 
 h1 {
-    font-family: 'Open Sans', sans-serif;
     font-weight: 600;
     text-align: center;
-    margin: 30px 0 10px 0;
+    margin: 10px 0;
 }
 
 /*
@@ -179,7 +217,7 @@ h1 {
 }
 
 .scores {
-width: 80%;
+width: 100%;
 border-collapse: collapse;
 }
 
@@ -190,10 +228,25 @@ th {
     padding: 8px;
 }
 
-tr:nth-child(even) {
-    background-color: #ddd;
+tr:nth-child(2) {
+    background-color: #FFD700;
 }
 
+tr:nth-child(3) {
+    background-color: #C0C0C0;
+}
+
+tr:nth-child(4) {
+    background-color: #CD7F32;
+}
+
+.user-list {
+    display: flex;
+}
+
+.user-list button {
+    height: 50px;
+}
 
 @media screen and (max-width: 660px) {
     .deck {

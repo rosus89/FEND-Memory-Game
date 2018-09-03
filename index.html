@@ -10,7 +10,14 @@
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
+<nav class="navbar">
+    <button class="leaderboard-open btn" onclick="modal(leaderboard)">Leaderboard</button>
+    <div class="player-control">
+        <p class="current-player">Guest</p>
+        <button class="change-player btn" onclick="modal(loginScreen)">Login</button>
+    </div>
 
+</nav>
     <div class="container">
         <header>
             <h1>Matching Game</h1>
@@ -80,19 +87,10 @@
                 <i class="fa fa-cube"></i>
             </li>
         </ul>
-
-        <table class="scores">
-            <tr class="score-legend">
-                <th>Rank</th>
-                <th>Moves</th>
-                <th>Minutes</th>
-                <th>Seconds</th>
-            </tr>
-        </table>
-
     </div>
-    <!-- Modal Game End - Start -->
-    <div class="modal">
+
+    <!-- Endgame Modal - Start -->
+    <div class="modal" id="end-game">
         <div class="modal-container">
             <h4>Congratulations!</h4>
             <hr>
@@ -106,7 +104,36 @@
             </div>
         </div>
     </div>
-    <!-- Modal Game End - End -->
+    <!-- Endgame Modal - End -->
+
+    <!-- Leaderboard Modal - Start -->
+    <div class="modal" id="leaderboard">
+        <div class="modal-container">
+            <table class="scores">
+                <tr class="score-legend">
+                    <th>User</th>
+                    <th>Moves</th>
+                    <th>Time</th>
+                </tr>
+            </table>
+            <button class="btn" onclick="modal(leaderboard)">Close</button>
+        </div>
+    </div>
+    <!-- Leaderboard Modal - End -->
+
+    <!-- Login Modal - Start -->
+    <div class="modal" id="login">
+        <div class="modal-container">
+            <h4>Users</h4>
+            <div class="user-list">
+            </div>
+            <input class="user-input" type="text" placeholder="Username">
+            <button class="btn" onclick="users.add()">New</button>
+            <button class="btn" onclick="modal(loginScreen)">Close</button>
+        </div>
+    </div>
+    <!-- Login Modal - End -->
+
     <script src="js/app.js"></script>
 </body>
 </html>

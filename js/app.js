@@ -11,10 +11,12 @@ const deck = document.querySelector(".deck");
 const movesDOM = document.querySelector(".moves");
 const starsDOM = document.querySelectorAll("#stars li i");
 const starsParentDOM = document.querySelector("#stars");
-const starsModalDOM = document.querySelector(".modal-stars")
+const starsModalDOM = document.querySelector(".modal-stars");
 const timerDOM = document.querySelector(".timer");
-const modalDOM = document.querySelector(".modal");
-const finalTimeDOM = document.querySelector(".final-time")
+const modalDOM = document.querySelector("#end-game");
+const leaderboard = document.querySelector('#leaderboard');
+const loginScreen = document.querySelector('#login');
+const finalTimeDOM = document.querySelector(".final-time");
 
 // Declarations
 
@@ -22,13 +24,56 @@ let moves = "";
 let completed = 0;
 let openCards = [];
 let storeScores = [];
-let users = ["Guest"]
 let currentUser = "Guest";
 let second, minute; 
 let timerStarted = false;
 let timerCycle;
-// Starts App
 
+let users = {
+    list: ["Guest"],
+    userList: document.querySelector(".user-list"),
+    show: function () {
+        this.userList.innerHTML= "";
+        for (let user of this.list) {
+            let userSelector = document.createElement("BUTTON");
+            userSelector.innerText = user;
+            this.userList.appendChild(userSelector);
+            userSelector.addEventListener("click", function() {
+                currentUser = event.target.innerText;
+                users.change();
+                modal(loginScreen);
+            })
+        }
+    },
+    fetch: function () {
+        if (localStorage.users != undefined){
+            this.list = JSON.parse(localStorage.users);
+        }
+    },
+    store: function (value) {
+        list = this.list;
+        list.push(value);
+        localStorage.users = JSON.stringify(this.list);
+        this.show();
+    },
+    start: function () {
+        this.fetch();
+        this.show();
+    },
+    add: function () {
+        let newUser = document.querySelector(".user-input");
+        this.store(newUser.value);
+        currentUser = newUser.value;
+        newUser.value = "";
+        this.change();
+    },
+    change: function () {
+        let currentPlayer = document.querySelector(".current-player");
+        currentPlayer.innerText = currentUser;
+    }
+}
+
+// Starts App
 document.body.onload = reset();
 
 // Resets App
@@ -44,7 +89,8 @@ function reset() {
 
     // load scores to array
     if (localStorage.scores.length != 0){
-        storeScores = (JSON.parse(localStorage.scores)); 
+        storeScores = (JSON.parse(localStorage.scores));
+        displayScores(); 
     }
     
     shuffle(cards);
@@ -65,6 +111,7 @@ function reset() {
     {
         star.className = "fa fa-star";
     }
+    users.start();
 }
 
 
@@ -239,8 +286,7 @@ function endGame(){
     }
 
     // no zero values displayed 
-    if (minute > 0 && second != 0)
-    {
+    if (minute > 0 && second != 0){
         finalTimeDOM.innerHTML = `${minute} ${stringMinute} ${second} ${stringSecond} and ${moves} moves`;
     }
     else if (minute > 0){
@@ -251,26 +297,27 @@ function endGame(){
     }
     modalDOM.style.display = "flex";
     starsModalDOM.innerHTML = starsParentDOM.innerHTML;
-    addToLeaderboard(moves, minute, second, storeScores);
+    addToLeaderboard(currentUser, moves, minute, second, storeScores);
 }
 
-function addToLeaderboard(moves, minutes, seconds){
-    function Score(moves, minutes, seconds){
-        this.moves = moves;
-        this.minutes = minutes;
-        this.seconds = seconds;
-    }
-    storeScores.push(new Score(moves, minutes, seconds));
-    storeScores.sort(function (a, b) {
-        return a.moves - b.moves;
-    })
-    console.log(storeScores);
-    if (storeScores.length > 3) {
-        storeScores.splice(3, 1)
-    }
-    localStorage.clear();
-    localStorage.scores = JSON.stringify(storeScores);
-    displayScores();
+function addToLeaderboard(user ,moves, minutes, seconds) {
+    function Score(user, moves, minutes, seconds) {
+    this.user = user;
+    this.moves = moves;
+    this.minutes = minutes;
+    this.seconds = seconds;
+  }
+  storeScores.push(new Score(user, moves, minutes, seconds));
+  storeScores.sort(function(a, b) {
+    return a.moves - b.moves;
+  });
+  console.log(storeScores);
+  if (storeScores.length > 3) {
+    storeScores.splice(3, 1);
+  }
+  localStorage.clear();
+  localStorage.scores = JSON.stringify(storeScores);
+  displayScores();
 }
 
 function displayScores() {
@@ -297,3 +344,13 @@ function displayScores() {
         }
     }
 }
+
+function modal(selector){
+    if (selector.style.display === "flex") {
+        selector.style.display = "none";
+    }
+    else {
+        selector.style.display = "flex";
+    }
+}
+
