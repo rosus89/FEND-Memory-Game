@@ -1,26 +1,31 @@
 //TODO: Refactoring 
-//TODO: Refactor Star system and add to Modal
+//TODO: Leaderboard
+
 // Create a list that holds all of your cards
 
 let cards = [...document.getElementsByClassName("card")];
 
 // Selectors
 
-let deck = document.querySelector(".deck");
-let movesDOM = document.querySelector(".moves");
-let starsDOM = document.querySelectorAll("#stars li i");
-let starsParentDOM = document.querySelector("#stars");
-let starsModalDOM = document.querySelector(".modal-stars")
-let timerDOM = document.querySelector(".timer");
-let modalDOM = document.querySelector(".modal");
-let finalTimeDOM = document.querySelector(".final-time")
+const deck = document.querySelector(".deck");
+const movesDOM = document.querySelector(".moves");
+const starsDOM = document.querySelectorAll("#stars li i");
+const starsParentDOM = document.querySelector("#stars");
+const starsModalDOM = document.querySelector(".modal-stars")
+const timerDOM = document.querySelector(".timer");
+const modalDOM = document.querySelector(".modal");
+const finalTimeDOM = document.querySelector(".final-time")
+
 // Declarations
 
 let moves = "";
 let completed = 0;
-var openCards = [];
+let openCards = [];
+let storeScores = [];
+let users = ["Guest"]
+let currentUser = "Guest";
 let second, minute; 
-var timerStarted = false;
+let timerStarted = false;
 let timerCycle;
 // Starts App
 
@@ -31,8 +36,18 @@ document.body.onload = reset();
 function reset() {
     completed = moves =  second = minute = 0;
     openCards = [];
+    
+    // creates array in localstorage
+    if (localStorage.scores === undefined) {
+        localStorage.scores = [];
+    }
 
-    cards = shuffle(cards);
+    // load scores to array
+    if (localStorage.scores.length != 0){
+        storeScores = (JSON.parse(localStorage.scores)); 
+    }
+    
+    shuffle(cards);
     clearInterval(timerCycle);
     timerStarted = false;
 
@@ -98,7 +113,7 @@ function turnCard() {
         if (openCards[0] === openCards[1]) {
             openCards.splice(1, 1);
         }
-
+        // if Cards Match
         else if (openCards[0].innerHTML === openCards[1].innerHTML)
          {
              
@@ -106,6 +121,7 @@ function turnCard() {
             counter();
             completion();
         }
+        // if Cards dont Match
          else 
          {
             counter();
@@ -175,9 +191,8 @@ function notMatched() {
         starsDOM[0].className = emptyStar;
     }
  }
- // counts seconds and modifies movesDOM
 
-
+ // Timer
 
  function timer(){
    timerCycle = setInterval(function(){
@@ -234,7 +249,51 @@ function endGame(){
     else {
         finalTimeDOM.innerHTML = `${second} ${stringSecond} and ${moves} moves`;
     }
-    modalDOM.style.display = "block";
+    modalDOM.style.display = "flex";
+    starsModalDOM.innerHTML = starsParentDOM.innerHTML;
+    addToLeaderboard(moves, minute, second, storeScores);
+}
 
-starsModalDOM.innerHTML = starsParentDOM.innerHTML;
+function addToLeaderboard(moves, minutes, seconds){
+    function Score(moves, minutes, seconds){
+        this.moves = moves;
+        this.minutes = minutes;
+        this.seconds = seconds;
+    }
+    storeScores.push(new Score(moves, minutes, seconds));
+    storeScores.sort(function (a, b) {
+        return a.moves - b.moves;
+    })
+    console.log(storeScores);
+    if (storeScores.length > 3) {
+        storeScores.splice(3, 1)
+    }
+    localStorage.clear();
+    localStorage.scores = JSON.stringify(storeScores);
+    displayScores();
+}
+
+function displayScores() {
+    const scoreLegend = document.querySelector(".score-legend");
+    const scoreBoard = document.querySelector(".scores");
+    scoreBoard.innerHTML = "";
+    scoreBoard.appendChild(scoreLegend);
+    for (let score of storeScores) {
+        let tableRow = document.createElement("TR");
+        scoreBoard.appendChild(tableRow);
+
+        let objKeys = Object.keys(score);
+        let objVal = Object.values(score);
+
+        for (let i = 0; i < objKeys.length; i++) {
+            let tableCell = document.createElement("TD")
+            if (objVal[i] != "0") {
+                tableRow.appendChild(tableCell);
+                tableCell.innerText = `${objVal[i]} ${objKeys[i]}`;
+            }
+            else {
+                tableRow.appendChild(tableCell);
+            }
+        }
+    }
 }
