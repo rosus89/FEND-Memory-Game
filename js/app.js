@@ -37,6 +37,7 @@ let users = {
         for (let user of this.list) {
             let userSelector = document.createElement("BUTTON");
             userSelector.innerText = user;
+            userSelector.classList.add("btn");
             this.userList.appendChild(userSelector);
             userSelector.addEventListener("click", function() {
                 currentUser = event.target.innerText;
@@ -61,10 +62,15 @@ let users = {
     },
     add: function () {
         let newUser = document.querySelector(".user-input");
-        this.store(newUser.value);
-        currentUser = newUser.value;
-        newUser.value = "";
-        this.change();
+        if (newUser.value != ''){
+            this.store(newUser.value);
+            currentUser = newUser.value;
+            newUser.value = "";
+            this.change();
+        }
+        else {
+            newUser.style.borderColor = "#f66";
+        }
     },
     change: function () {
         let currentPlayer = document.querySelector(".current-player");

@@ -202,6 +202,10 @@ h1 {
 .modal-container p {
     text-align: center;
 }
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+}
 
 .modal-stars {
     font-size: 40px;
@@ -242,11 +246,23 @@ tr:nth-child(4) {
 
 .user-list {
     display: flex;
+    flex-wrap: wrap;
 }
 
-.user-list button {
-    height: 50px;
+.user-form {
+    width: 100%;
+    display: flex;
 }
+
+.user-input{
+    width: 100%;
+    margin:2px 6px 2px 0;
+}
+
+.user-form .btn {
+margin: 0;
+}
+
 
 @media screen and (max-width: 660px) {
     .deck {
