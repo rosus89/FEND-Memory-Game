@@ -1,22 +1,39 @@
 # Memory Game Project
 
-[Live Preview](https://rosus89.github.io/FEND-Memory-Game/)
+
+[Live Demo](https://rosus89.github.io/FEND-Memory-Game/)
 
 ## Table of Contents
 
 * [Instructions](#instructions)
-* [Contributing](#contributing)
+* [Dependencies](#dependencies)
+* [TODO](#todo)
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+* Play as guest or create a username in the users section opened by the login button.
+* Match all the 8 pairs to win game. Complete in __15__ moves or less for __3__ stars, __17__ for __2 stars__ and __20__ for __1 star__.
+* Check how well you did from the leaderboard section.
 
-To get started, open `js/app.js` and start building out the app's functionality
+## Dependencies
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+The code is written in plain javascript so it has no dependency to any library or framework.
 
-## Contributing
+Font Awsome icons are used for the cards and some of the page elements.
+* for more information on Font Awsome visit their [official website](https://fontawesome.com/)
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+## TODO
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+1. Leaderboard
+* Refactor
+* Display message if leaderboard is empty
+* If players completed game with same number of moves sort by time
+* Improve design
+
+2. Features 
+* Add function to delete users
+
+## Copyright and License
+
+[See Licence](https://opensource.org/licenses/MIT)
+
