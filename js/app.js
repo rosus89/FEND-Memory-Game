@@ -69,6 +69,7 @@ let users = {
             this.change();
         }
         else {
+            //TODO: change color back after the user inputs correct user or closes modal
             newUser.style.borderColor = "#f66";
         }
     },
@@ -166,6 +167,7 @@ function turnCard() {
         if (openCards[0] === openCards[1]) {
             openCards.splice(1, 1);
         }
+
         // if Cards Match
         else if (openCards[0].innerHTML === openCards[1].innerHTML)
          {
@@ -174,6 +176,7 @@ function turnCard() {
             counter();
             completion();
         }
+
         // if Cards dont Match
          else 
          {
@@ -181,7 +184,6 @@ function turnCard() {
             notMatched();
              
     }
-
  }
  }
 
@@ -222,9 +224,7 @@ function notMatched() {
  completed++;
  if (completed == 8)
  {
-
      endGame();
-     
  }
 }
 
@@ -278,7 +278,7 @@ function endGame(){
 
     clearInterval(timerCycle);
 
-    // Propper Grammar
+    // Proper Grammar
     // minute / minutes
     let stringMinute = "minutes";
     if (minute === 1){
@@ -317,10 +317,10 @@ function addToLeaderboard(user ,moves, minutes, seconds) {
   storeScores.sort(function(a, b) {
     return a.moves - b.moves;
   });
-  console.log(storeScores);
   if (storeScores.length > 3) {
     storeScores.splice(3, 1);
   }
+  //TODO: sort by time 
   localStorage.clear();
   localStorage.scores = JSON.stringify(storeScores);
   displayScores();
@@ -330,19 +330,24 @@ function displayScores() {
     const scoreLegend = document.querySelector(".score-legend");
     const scoreBoard = document.querySelector(".scores");
     scoreBoard.innerHTML = "";
-    scoreBoard.appendChild(scoreLegend);
     for (let score of storeScores) {
-        let tableRow = document.createElement("TR");
+        let tableRow = document.createElement("DIV");
+        tableRow.classList.add("scores-row");
         scoreBoard.appendChild(tableRow);
-
         let objKeys = Object.keys(score);
         let objVal = Object.values(score);
-
+//TODO: Refactoring and improving display
         for (let i = 0; i < objKeys.length; i++) {
-            let tableCell = document.createElement("TD")
+            let cell = document.createElement("P")
             if (objVal[i] != "0") {
-                tableRow.appendChild(tableCell);
-                tableCell.innerText = `${objVal[i]} ${objKeys[i]}`;
+                if (objKeys[i] === "user"){
+                    tableRow.appendChild(cell);
+                    cell.innerText = `${objVal[i]}`;
+                }
+                else {
+                    tableRow.appendChild(cell);
+                    cell.innerText = `${objVal[i]} ${objKeys[i]}`;
+                }
             }
             else {
                 tableRow.appendChild(tableCell);
@@ -350,6 +355,8 @@ function displayScores() {
         }
     }
 }
+
+// Closes and opens modals 
 
 function modal(selector){
     if (selector.style.display === "flex") {
