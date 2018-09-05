@@ -350,7 +350,7 @@ function displayScores() {
                 }
             }
             else {
-                tableRow.appendChild(tableCell);
+                tableRow.appendChild(cell);
             }
         }
     }
