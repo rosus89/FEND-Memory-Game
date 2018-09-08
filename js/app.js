@@ -265,14 +265,13 @@ function notMatched() {
  }
 
 // Starts Timer and stops it from starting again
-var startTimer = (function () {
-    return function () {
+var startTimer = function () {
         if (timerStarted == false) {
             timerStarted = true;
             timer();
         }
     };
-})();
+
 
 function endGame(){
 
